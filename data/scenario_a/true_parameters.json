@@ -1,0 +1,31 @@
+{
+  "random_seed": 20260801,
+  "n_weeks": 156,
+  "train_weeks": 130,
+  "test_weeks": 26,
+  "start_date": "2023-01-02",
+  "frequency": "W-MON",
+  "l_max": 8,
+  "baseline": 1000.0,
+  "trend_total": 80.0,
+  "promotion_effect": 100.0,
+  "noise_sd": 35.0,
+  "tv": {
+    "alpha": 0.7,
+    "lam": 2.0,
+    "beta": 180.0,
+    "scale": 120.0
+  },
+  "google_search": {
+    "alpha": 0.2,
+    "lam": 4.0,
+    "beta": 140.0,
+    "scale": 75.0
+  },
+  "tiktok": {
+    "alpha": 0.4,
+    "lam": 3.0,
+    "beta": 90.0,
+    "scale": 60.0
+  }
+}
