@@ -1,6 +1,6 @@
 # Bayesian Retail Media Mix Modeling with PyMC-Marketing
 
-This project is a small end-to-end Bayesian media mix modeling study built with [PyMC-Marketing](https://github.com/pymc-labs/pymc-marketing) and informed by Jin et al. (2017), [“Bayesian Methods for Media Mix Modeling with Carryover and Shape Effects”](https://research.google/pubs/bayesian-methods-for-media-mix-modeling-with-carryover-and-shape-effects/). 
+This project is a small end-to-end Bayesian media mix modeling study built with [PyMC-Marketing](https://github.com/pymc-labs/pymc-marketing) and Jin et al. (2017), [“Bayesian Methods for Media Mix Modeling with Carryover and Shape Effects”](https://research.google/pubs/bayesian-methods-for-media-mix-modeling-with-carryover-and-shape-effects/). 
 I used synthetic weekly retail data so the workflow could be developed and checked in a controlled setting before applying the same ideas to real marketing data. 
 
 The dataset contains TV, Google Search, and TikTok spend, together with promotion, trend, and yearly seasonality. The current analysis uses a 130-week development set. Media effects are modeled with channel-specific geometric adstock and logistic saturation, allowing the model to represent both carryover and diminishing returns.
