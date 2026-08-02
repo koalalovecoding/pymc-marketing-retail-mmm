@@ -7,12 +7,12 @@ The dataset contains TV, Google Search, and TikTok spend, together with promotio
 
 ## Workflow
 
-1. Validate the weekly data and inspect spend patterns and correlations.
-2. Build the MMM explicitly and review its variables, dimensions, and priors.
-3. Run prior predictive checks.
-4. Fit the model with NUTS and diagnose R-hat, effective sample size, BFMI, and divergences.
-5. Run posterior predictive checks and residual diagnostics.
-6. Estimate channel parameters, contributions, historical ROAS, and marginal ROAS.
+1. Validate the weekly data and inspect spend patterns and correlations. (`01_eda_and_data_prep.ipynb`)
+2. Build the MMM explicitly and review its variables, dimensions, and priors. (`02_build_fit_and_diagnostics(1).ipynb`)
+3. Run prior predictive checks. (`02_build_fit_and_diagnostics(1).ipynb`)
+4. Fit the model with NUTS and diagnose R-hat, effective sample size, BFMI, and divergences. (`02_build_fit_and_diagnostics(1).ipynb`)
+5. Run posterior predictive checks and residual diagnostics. (`03_posterior_predictive_and_residuals.ipynb`)
+6. Estimate channel parameters, contributions, historical ROAS, and marginal ROAS. (`04_media_deep_dive.ipynb`)
 
 ## Main results
 
