@@ -1,6 +1,7 @@
 # macOS
 .DS_Store
 
+Q_A.md
 # Python cache
 __pycache__/
 *.py[cod]
