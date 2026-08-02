@@ -7,13 +7,12 @@ The dataset contains TV, Google Search, and TikTok spend, together with promotio
 
 ## Workflow
 
-1. Validate the weekly data and inspect spend patterns and correlations. (`01_eda_and_data_prep.ipynb`)
-2. Build the MMM explicitly and review its variables, dimensions, and priors. (`02_build_fit_and_diagnostics(1).ipynb`)
-3. Run prior predictive checks. (`02_build_fit_and_diagnostics(1).ipynb`)
-4. Fit the model with NUTS and diagnose R-hat, effective sample size, BFMI, and divergences. (`02_build_fit_and_diagnostics(1).ipynb`)
-5. Run posterior predictive checks and residual diagnostics. (`03_posterior_predictive_and_residuals.ipynb`)
-6. Estimate channel parameters, contributions, historical ROAS, and marginal ROAS. (`04_media_deep_dive.ipynb`)
-
+1. Validate the weekly data and inspect spend patterns and correlations. ([Notebook 01](notebooks/01_eda_and_data_prep.ipynb))
+2. Build the MMM explicitly and review its variables, dimensions, and priors. ([Notebook 02](notebooks/02_build_fit_and_diagnostics.ipynb))
+3. Run prior predictive checks. ([Notebook 02](notebooks/02_build_fit_and_diagnostics.ipynb))
+4. Fit the model with NUTS and diagnose R-hat, effective sample size, BFMI, and divergences. ([Notebook 02](notebooks/02_build_fit_and_diagnostics.ipynb))
+5. Run posterior predictive checks and residual diagnostics. ([Notebook 03](notebooks/03_posterior_predictive_and_residuals.ipynb))
+6. Estimate channel parameters, contributions, historical ROAS, and marginal ROAS. ([Notebook 04](notebooks/04_media_deep_dive.ipynb))
 ## Main results
 
 The initial model showed divergences caused by a strong nonlinear relationship between the Google Search saturation parameters. I addressed this with tighter regularizing priors rather than simply increasing the number of draws. The revised model had no post-warmup divergences, all reported R-hat values were at or below 1.002, and effective sample sizes were comfortably above 1,600.
