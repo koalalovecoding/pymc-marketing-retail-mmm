@@ -1,10 +1,10 @@
 # Bayesian Retail Media Mix Modeling with PyMC-Marketing
 
-This project is a small end-to-end Bayesian media mix modeling study built with [PyMC-Marketing](https://github.com/pymc-labs/pymc-marketing) and Jin et al. (2017), [“Bayesian Methods for Media Mix Modeling with Carryover and Shape Effects”](https://research.google/pubs/bayesian-methods-for-media-mix-modeling-with-carryover-and-shape-effects/). 
-I used synthetic weekly retail data so the workflow could be developed and checked in a controlled setting before applying the same ideas to real marketing data. 
+This project is a small end-to-end Bayesian media mix modeling study built with [PyMC-Marketing](https://github.com/pymc-labs/pymc-marketing) and Jin et al. (2017), [“Bayesian Methods for Media Mix Modeling with Carryover and Shape Effects”](https://research.google/pubs/bayesian-methods-for-media-mix-modeling-with-carryover-and-shape-effects/).
 
-The dataset contains TV, Google Search, and TikTok spend, together with promotion, trend, and yearly seasonality. The synthetic data files are stored in [`data/scenario_a/`](data/scenario_a/), and the current analysis uses [`scenario_a_train.csv`](data/scenario_a/scenario_a_train.csv) as the 130-week development set. Media effects are modeled with channel-specific geometric adstock and logistic saturation, allowing the model to represent both carryover and diminishing returns.
+I used synthetic weekly retail data so the workflow could be developed and checked in a controlled setting before applying the same ideas to real marketing data.
 
+The dataset contains TV, Google Search, and TikTok spend, together with promotion, trend, and yearly seasonality. The synthetic data files are stored in [`data/scenario_a/`](data/scenario_a/). The analysis uses [`scenario_a_train.csv`](data/scenario_a/scenario_a_train.csv) as the 130-week development set, while [`scenario_a_test.csv`](data/scenario_a/scenario_a_test.csv) is reserved as an untouched 26-week holdout set. Media effects are modeled with channel-specific geometric adstock and logistic saturation, allowing the model to represent both carryover and diminishing returns.
 
 ## Workflow
 
@@ -14,19 +14,32 @@ The dataset contains TV, Google Search, and TikTok spend, together with promotio
 4. Fit the model with NUTS and diagnose R-hat, effective sample size, BFMI, and divergences. ([Notebook 02](notebooks/02_build_fit_and_diagnostics.ipynb))
 5. Run posterior predictive checks and residual diagnostics. ([Notebook 03](notebooks/03_posterior_predictive_and_residuals.ipynb))
 6. Estimate channel parameters, contributions, historical ROAS, and marginal ROAS. ([Notebook 04](notebooks/04_media_deep_dive.ipynb))
+7. Optimize a fixed $1M media budget across TV, Google Search, and TikTok over a 13-week planning horizon. ([Notebook 05](optimization/05_budget_optimization.ipynb))
+8. Evaluate out-of-sample predictive performance on the untouched 26-week holdout period. ([Notebook 06](Validation/06_holdout_validation.ipynb))
+
 ## Main results
 
 The initial model showed divergences caused by a strong nonlinear relationship between the Google Search saturation parameters. I addressed this with tighter regularizing priors rather than simply increasing the number of draws. The revised model had no post-warmup divergences, all reported R-hat values were at or below 1.002, and effective sample sizes were comfortably above 1,600.
 
 Posterior predictive performance on the training period was:
 
-- RMSE: **32.27**
-- MAE: **25.48**
-- 94% interval coverage: **96.9%**
-- Lag-1 residual autocorrelation: **0.010**
+* RMSE: **32.27**
+* MAE: **25.48**
+* 94% interval coverage: **96.9%**
+* Lag-1 residual autocorrelation: **0.010**
+
+On the untouched 26-week holdout period, predictive performance remained similar to the training period:
+
+* Holdout RMSE: **32.04**
+* Holdout MAE: **24.84**
+* 94% interval coverage: **100.0%**
+
+The similar training and holdout errors indicate that the model maintained its predictive performance on data that was not used during model development.
 
 Median historical ROAS estimates were **1.11 for TV**, **1.49 for Google Search**, and **1.25 for TikTok**. Median marginal ROAS values from a 1% spend increase were lower: **0.92**, **0.80**, and **0.97**, respectively. Google Search also had the widest uncertainty interval, so its point estimate should be interpreted cautiously.
 
+For a fixed **1M budget over 13 weeks**, the budget optimization used channel-level bounds of 50%–150% of the recent allocation baseline. The optimized allocation shifted the budget from **25.9% to 24.9% for TV**, **51.5% to 47.7% for Google Search**, and **22.6% to 27.4% for TikTok**. This corresponds to approximately **249K for TV**, **477K for Google Search**, and **274K for TikTok**.
+
 ## Limitations
 
-This is a synthetic-data demonstration, not evidence that observational MMM estimates are automatically causal. The current ROAS calculation also excludes carryover beyond the final training week. Holdout validation, experiment calibration, and constrained budget optimization are natural next steps.
+This is a synthetic-data demonstration, not evidence that observational MMM estimates are automatically causal. The current ROAS calculation also excludes carryover beyond the final training week. Experiment calibration is a natural next step.
